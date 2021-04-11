@@ -26,7 +26,7 @@ logger.info("SUCCESS: Connection to RDS MySQL instance succeeded")
 def handler(event, context):
     cur = connection.cursor()  
 ## Retrieve Data    
-    query = "UPDATE Staff SET status='A' where id='{}'".format(event['id'])
+    query = "INSERT INTO OpeningHours(dayOfWeek,branchId,opens,closes) VALUES ('{}','{}','{}','{}')".format(event['dayOfWeek'], event['branchId'], event['opens'],event['closes'])
     cur.execute(query)
     connection.commit()
     print(cur.rowcount, "record(s) affected")
@@ -42,6 +42,5 @@ def handler(event, context):
     
     #k = json.loads(responseObject['body'])
     #print(k['uin'])
-    #test
 
     return responseObject
